@@ -5,7 +5,7 @@
   "description": "데이터 대시보드 AgentHub 에이전트 — CSV/JSON → KPI·차트 (Agent Function + Surface)",
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json --noEmit",
+    "build": "node build.mjs",
     "validate": "tsc -p tsconfig.json --noEmit",
     "test": "tsx --test tests/*.test.ts"
   },
@@ -21,6 +21,7 @@
     "@types/node": "^22.10.0",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
+    "esbuild": "^0.24.0",
     "tsx": "^4.19.2",
     "typescript": "~5.6.0"
   }

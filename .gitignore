@@ -2,5 +2,7 @@ node_modules/
 *.log
 .DS_Store
 .env
-dist/
 coverage/
+
+# dist/ is intentionally tracked: the AgentHub Build Pipeline (§5.3) trusts a
+# prebuilt dist/ and skips npm. `npm run build` regenerates it from source.
