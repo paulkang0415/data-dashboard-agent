@@ -1,0 +1,17 @@
+{
+  "columns": ["date", "channel", "sessions", "bounceRate"],
+  "rows": [
+    { "date": "2025-08-01", "channel": "검색", "sessions": 5240, "bounceRate": 0.38 },
+    { "date": "2025-08-01", "channel": "소셜", "sessions": 3110, "bounceRate": 0.52 },
+    { "date": "2025-08-01", "channel": "직접", "sessions": 2480, "bounceRate": 0.29 },
+    { "date": "2025-08-02", "channel": "검색", "sessions": 5610, "bounceRate": 0.36 },
+    { "date": "2025-08-02", "channel": "소셜", "sessions": 3580, "bounceRate": 0.49 },
+    { "date": "2025-08-02", "channel": "직접", "sessions": 2390, "bounceRate": 0.31 },
+    { "date": "2025-08-03", "channel": "검색", "sessions": 6020, "bounceRate": 0.34 },
+    { "date": "2025-08-03", "channel": "소셜", "sessions": 4120, "bounceRate": 0.47 },
+    { "date": "2025-08-03", "channel": "직접", "sessions": 2710, "bounceRate": 0.27 },
+    { "date": "2025-08-04", "channel": "검색", "sessions": 5890, "bounceRate": 0.35 },
+    { "date": "2025-08-04", "channel": "소셜", "sessions": 3960, "bounceRate": 0.50 },
+    { "date": "2025-08-04", "channel": "직접", "sessions": 2880, "bounceRate": 0.26 }
+  ]
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>데이터 대시보드 에이전트</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">데이터 대시보드 <span class="brand-tag">에이전트</span></span>
+    <span class="brand-sub">CSV·JSON → KPI · 차트</span>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="side-section">
+        <h2 class="side-title">데이터셋</h2>
+        <ul id="dataset-list" class="dataset-list"></ul>
+      </div>
+      <div class="side-section">
+        <h2 class="side-title">데이터 업로드</h2>
+        <label class="upload-box" id="upload-box">
+          <input type="file" id="file-input" accept=".csv,.json" hidden />
+          <span class="upload-ico">⬆</span>
+          <span class="upload-text">CSV / JSON 파일 선택</span>
+        </label>
+        <p id="upload-msg" class="upload-msg"></p>
+      </div>
+    </aside>
+
+    <section class="content">
+      <div class="content-head">
+        <div>
+          <h1 id="ds-name" class="ds-name">데이터셋을 선택하세요</h1>
+          <p id="ds-desc" class="ds-desc"></p>
+        </div>
+      </div>
+
+      <div id="kpi-row" class="kpi-row"></div>
+
+      <div class="prompt-bar">
+        <input
+          id="prompt-input"
+          class="prompt-input"
+          type="text"
+          placeholder="예) 월별 판매량 추이 차트 만들어줘"
+        />
+        <button id="prompt-send" class="prompt-send" type="button">생성</button>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip" type="button">월별 판매량 추이 차트 만들어줘</button>
+        <button class="chip" type="button">사용자 이탈 구간 분석해줘</button>
+        <button class="chip" type="button">핵심 KPI 요약 대시보드 구성해줘</button>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <h3 id="chart-title" class="chart-title">차트</h3>
+          <span id="chart-note" class="chart-note"></span>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="chart"></canvas>
+        </div>
+        <p id="empty-state" class="empty-state">
+          데이터셋을 선택하고 프롬프트를 입력하거나 예시 칩을 눌러보세요.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
