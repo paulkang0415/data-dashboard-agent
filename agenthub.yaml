@@ -36,11 +36,12 @@ llm:
   mode: agenthub                   # 공식 Gateway 사용 (§9)
   default: fast
   aliases:                         # 코드에서는 alias만 사용 (§9.2)
-    fast: openai.gpt-5.5-mini
-    main: openai.gpt-5.5-thinking
+    # mvp-1 런타임 카탈로그는 Anthropic Claude만 지원(비-Claude는 validator가 거부).
+    fast: anthropic.claude-haiku-5    # 차트 의도 구조화 추출용 (저비용·저지연)
+    main: anthropic.claude-sonnet-5   # 더 무거운 추론용 기본
   allowed_models:
-    - openai.gpt-5.5-mini
-    - openai.gpt-5.5-thinking
+    - anthropic.claude-haiku-5
+    - anthropic.claude-sonnet-5
   capabilities:
     - text-generation
     - structured-output
