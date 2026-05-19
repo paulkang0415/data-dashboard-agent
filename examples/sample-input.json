@@ -1,0 +1,11 @@
+{
+  "description": "Run 입력 예시 (AgentInput, §10.2). action별 형태:",
+  "examples": [
+    { "action": "init" },
+    { "action": "select", "datasetId": "retention" },
+    { "action": "query", "prompt": "월별 판매량 추이 차트 만들어줘", "datasetId": "sales" },
+    { "action": "query", "prompt": "사용자 이탈 구간 분석해줘", "datasetId": "retention" },
+    { "action": "query", "prompt": "핵심 KPI 요약 대시보드 구성해줘" },
+    { "action": "ingest", "fileId": "file_123", "name": "my-data", "format": "csv" }
+  ]
+}

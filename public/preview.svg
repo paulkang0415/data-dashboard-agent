@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" width="480" height="300">
+  <rect width="480" height="300" fill="#0f1117"/>
+  <rect x="0" y="0" width="120" height="300" fill="#171a23"/>
+  <rect x="16" y="24" width="88" height="34" rx="6" fill="#1d212c" stroke="#2a2f3c"/>
+  <rect x="16" y="66" width="88" height="34" rx="6" fill="#1d212c" stroke="#5b8cff"/>
+  <rect x="16" y="108" width="88" height="34" rx="6" fill="#1d212c" stroke="#2a2f3c"/>
+  <text x="150" y="44" fill="#e7e9ee" font-family="sans-serif" font-size="18" font-weight="700">데이터 대시보드</text>
+  <rect x="150" y="64" width="92" height="46" rx="8" fill="#171a23" stroke="#2a2f3c"/>
+  <rect x="252" y="64" width="92" height="46" rx="8" fill="#171a23" stroke="#2a2f3c"/>
+  <rect x="354" y="64" width="92" height="46" rx="8" fill="#171a23" stroke="#2a2f3c"/>
+  <rect x="150" y="128" width="296" height="148" rx="10" fill="#171a23" stroke="#2a2f3c"/>
+  <rect x="176" y="226" width="26" height="34" fill="#5b8cff"/>
+  <rect x="216" y="200" width="26" height="60" fill="#5b8cff"/>
+  <rect x="256" y="178" width="26" height="82" fill="#5b8cff"/>
+  <rect x="296" y="160" width="26" height="100" fill="#3fcf8e"/>
+  <rect x="336" y="186" width="26" height="74" fill="#5b8cff"/>
+  <rect x="376" y="150" width="26" height="110" fill="#ffb454"/>
+</svg>

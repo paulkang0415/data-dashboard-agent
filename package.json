@@ -2,17 +2,26 @@
   "name": "data-dashboard-agent",
   "version": "0.1.0",
   "private": true,
-  "description": "데이터 대시보드 에이전트 — CSV/JSON 데이터를 차트와 KPI 대시보드로 시각화 (AgentHub 마이그레이션용 테스트 에이전트)",
+  "description": "데이터 대시보드 AgentHub 에이전트 — CSV/JSON → KPI·차트 (Agent Function + Surface)",
   "type": "module",
-  "main": "server/index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "node --watch server/index.js"
+    "build": "tsc -p tsconfig.json --noEmit",
+    "validate": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test tests/*.test.ts"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "//": "@agenthub/sdk and @agenthub/surface-sdk are provided by the AgentHub build/runtime (see types/*.d.ts ambient stubs); they are not installed from a registry.",
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "tsx": "^4.19.2",
+    "typescript": "~5.6.0"
   }
 }

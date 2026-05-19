@@ -1,0 +1,73 @@
+id: data-dashboard                 # 전역 유일 ID (§5.2)
+name: 데이터 대시보드
+description: CSV·JSON 데이터를 입력하면 KPI 요약과 차트를 자동으로 구성하는 데이터 시각화 에이전트
+version: 0.1.0                      # SemVer
+
+repository:
+  provider: github
+  branch: main                     # owner/repo는 Connector 연동 정보에서 추론 (§7)
+
+entrypoints:
+  agent: src/agent/index.ts        # 필수: Agent 진입점 (§8.1)
+  surface: src/surface/App.tsx     # Surface 진입점 (§8.2)
+
+runtime:
+  node: "20"
+  package_manager: npm
+  build: npm run build
+  agent_timeout_ms: 60000          # Run 1회 최대 (기본 60s)
+  agent_memory_mb: 512
+
+surface:
+  type: agenthub-rendered          # v1은 이 값만 지원
+  sandbox: iframe                  # v1 고정 (§12)
+  supports_fullscreen: true
+  supports_snapshot: true
+  state_mode: agenthub-managed     # Agent만 RunResult.surface_patches로 State 변경 (§13.3)
+  state_schema: src/shared/schemas.ts#SessionState
+
+session:
+  agent_locked: true
+  default_title: 제목 없는 대시보드
+  state_size_limit_kb: 4096        # 업로드 데이터 포함 가능하도록 최대치
+  concurrent_runs: 1
+
+llm:
+  mode: agenthub                   # 공식 Gateway 사용 (§9)
+  default: fast
+  aliases:                         # 코드에서는 alias만 사용 (§9.2)
+    fast: openai.gpt-5.5-mini
+    main: openai.gpt-5.5-thinking
+  allowed_models:
+    - openai.gpt-5.5-mini
+    - openai.gpt-5.5-thinking
+  capabilities:
+    - text-generation
+    - structured-output
+  estimated_usage:
+    avg_input_tokens_per_run: 1200
+    avg_output_tokens_per_run: 250
+
+permissions:                       # 선언 ↔ 사용 일치 (§15/§18.1)
+  - llm.generate                   # 프롬프트 → 차트 의도 해석 (Gateway)
+  - files.read                     # 업로드한 CSV/JSON 읽기
+  - session.state.read
+  - session.state.write
+  - artifacts.write                # 생성된 차트 스펙 저장
+
+# 외부 API/custom LLM 미사용 → external_apis 없음.
+# 모든 처리는 AgentHub Gateway 내부에서만 수행 (data_policy 기준).
+
+background:
+  supported: false                 # 실시간 소스 없음 — 백그라운드 스케줄 미사용
+
+marketplace:
+  category: 데이터
+  icon: public/icon.svg
+  preview_image: public/preview.svg
+  tags: [dashboard, chart, kpi, csv, analytics]
+  visibility: unlisted             # public | unlisted | private (§23.1)
+  example_prompts:
+    - 월별 판매량 추이 차트 만들어줘
+    - 사용자 이탈 구간 분석해줘
+    - 핵심 KPI 요약 대시보드 구성해줘

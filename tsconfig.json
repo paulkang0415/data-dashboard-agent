@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "types": [],
+    "typeRoots": ["./types", "./node_modules/@types"]
+  },
+  "//": "Tests are type-checked + executed by `npm test` (tsx); the build/validate typecheck targets only deployable code (§18.1/§18.3).",
+  "include": ["src", "types"]
+}
