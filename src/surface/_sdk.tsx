@@ -9,9 +9,33 @@
 //   Host → Surface : { kind:'event',    type, payload }
 //
 // esbuild aliases the bare `@agenthub/surface-sdk` specifier to this file.
-import { useSyncExternalStore } from "react";
+import { useRef, useSyncExternalStore } from "react";
 
 type Pending = { resolve: (v: any) => void; reject: (e: any) => void };
+
+// Shallow equality for useSelector memoisation. Prevents the well-known
+// `useSyncExternalStore` infinite-render trap when a selector returns a fresh
+// reference each call (e.g. `state.datasets ?? []` produces a new array
+// every read) — without this React bails with error #185 "Maximum update
+// depth exceeded" and the Surface comes up as a black screen.
+function shallowEq(a: unknown, b: unknown): boolean {
+  if (Object.is(a, b)) return true;
+  if (a === null || b === null || typeof a !== "object" || typeof b !== "object") return false;
+  if (Array.isArray(a) && Array.isArray(b)) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) if (!Object.is(a[i], b[i])) return false;
+    return true;
+  }
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+  const ka = Object.keys(a as Record<string, unknown>);
+  const kb = Object.keys(b as Record<string, unknown>);
+  if (ka.length !== kb.length) return false;
+  for (const k of ka) {
+    if (!Object.prototype.hasOwnProperty.call(b, k)) return false;
+    if (!Object.is((a as any)[k], (b as any)[k])) return false;
+  }
+  return true;
+}
 
 const pending = new Map<string, Pending>();
 const eventSubs = new Map<string, Set<(payload: unknown) => void>>();
@@ -119,13 +143,26 @@ const hub: AgentHubSurface = {
 
   state: {
     useSelector<T>(selector: (state: unknown) => T): T {
+      // Memoise the snapshot so a selector like `s.datasets ?? []` returns
+      // a stable reference once the underlying state stops changing. Without
+      // this `useSyncExternalStore` sees a new value every render and tears
+      // (React #185, observed as a black Surface screen).
+      const last = useRef<{ has: boolean; value: T }>({ has: false, value: undefined as unknown as T });
+      const snapshot = (): T => {
+        const next = selector(stateCache);
+        if (last.current.has && shallowEq(last.current.value, next)) {
+          return last.current.value;
+        }
+        last.current = { has: true, value: next };
+        return next;
+      };
       return useSyncExternalStore(
         (cb) => {
           stateListeners.add(cb);
           return () => stateListeners.delete(cb);
         },
-        () => selector(stateCache),
-        () => selector(stateCache),
+        snapshot,
+        snapshot,
       );
     },
     emit: (patches) => request("state.emit", { patches }),
